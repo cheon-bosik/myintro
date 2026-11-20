@@ -1,0 +1,570 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Personal Website</title>
+
+  <style>
+    /* 기본 설정 */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+        "Pretendard", sans-serif;
+      background: #f7f9fc;
+      color: #111827;
+      line-height: 1.7;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .container {
+      width: min(1100px, 90%);
+      margin: 0 auto;
+    }
+
+    section {
+      padding: 120px 0;
+    }
+
+    .section-label {
+      color: #0e7490;
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 3px;
+      margin-bottom: 18px;
+    }
+
+    .section-title {
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 800;
+      letter-spacing: -2px;
+      margin-bottom: 50px;
+      line-height: 1.2;
+    }
+
+    /* 첫 화면 */
+    .hero {
+      min-height: 88vh;
+      display: flex;
+      align-items: center;
+      color: white;
+      background: linear-gradient(
+        135deg,
+        #0b112b 0%,
+        #102d50 45%,
+        #087e8b 100%
+      );
+      position: relative;
+      overflow: hidden;
+      padding: 80px 0;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(
+        circle,
+        rgba(65, 211, 220, 0.16),
+        transparent 70%
+      );
+      top: -200px;
+      right: -150px;
+      border-radius: 50%;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-label {
+      font-size: 14px;
+      letter-spacing: 5px;
+      color: #a5f3fc;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: clamp(55px, 10vw, 110px);
+      font-weight: 900;
+      letter-spacing: -5px;
+      line-height: 1.05;
+      margin-bottom: 30px;
+    }
+
+    .hero-description {
+      font-size: clamp(16px, 2vw, 20px);
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 40px;
+      line-height: 1.9;
+    }
+
+    .hero-btn {
+      display: inline-block;
+      padding: 15px 30px;
+      border-radius: 50px;
+      background: white;
+      color: #0f2946;
+      font-weight: 700;
+      transition: 0.3s;
+    }
+
+    .hero-btn:hover {
+      transform: translateY(-3px);
+      background: #a5f3fc;
+    }
+
+    /* 소개 */
+    .about {
+      background: white;
+    }
+
+    .about-text {
+      font-size: 20px;
+      color: #4b5563;
+      line-height: 2.1;
+      max-width: 850px;
+    }
+
+    .about-text strong {
+      color: #111827;
+    }
+
+    /* 하는 일 */
+    .work-list {
+      list-style: none;
+    }
+
+    .work-item {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      padding: 35px 0;
+      border-bottom: 1px solid #dce3ea;
+      gap: 20px;
+    }
+
+    .work-number {
+      color: #0e7490;
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .work-item h3 {
+      font-size: 25px;
+      margin-bottom: 8px;
+    }
+
+    .work-item p {
+      color: #64748b;
+      font-size: 16px;
+    }
+
+    /* 좋아하는 것 */
+    .favorites {
+      background: #eef3f8;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .favorite-card {
+      height: 300px;
+      border-radius: 24px;
+      padding: 30px;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.4s, box-shadow 0.4s;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.12);
+    }
+
+    .favorite-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.65),
+        rgba(0, 0, 0, 0.05) 70%
+      );
+      z-index: 1;
+    }
+
+    .favorite-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 25px 45px rgba(15, 23, 42, 0.2);
+    }
+
+    .favorite-card > * {
+      position: relative;
+      z-index: 2;
+    }
+
+    .favorite-card h3 {
+      font-size: 25px;
+      margin-bottom: 8px;
+    }
+
+    .favorite-card p {
+      font-size: 15px;
+      color: rgba(255, 255, 255, 0.85);
+    }
+
+    .card-emoji {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+
+    .card-1 {
+      background: linear-gradient(135deg, #6366f1, #312e81);
+    }
+
+    .card-2 {
+      background: linear-gradient(135deg, #f59e0b, #b45309);
+    }
+
+    .card-3 {
+      background: linear-gradient(135deg, #10b981, #065f46);
+    }
+
+    .card-4 {
+      background: linear-gradient(135deg, #ec4899, #9d174d);
+    }
+
+    .card-5 {
+      background: linear-gradient(135deg, #06b6d4, #155e75);
+    }
+
+    .card-6 {
+      background: linear-gradient(135deg, #8b5cf6, #4c1d95);
+    }
+
+    /* 연락 */
+    .contact {
+      text-align: center;
+      background: #0b112b;
+      color: white;
+      padding: 130px 20px;
+    }
+
+    .contact .section-label {
+      color: #67e8f9;
+    }
+
+    .contact h2 {
+      font-size: clamp(35px, 6vw, 65px);
+      letter-spacing: -2px;
+      margin-bottom: 25px;
+    }
+
+    .contact p {
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 40px;
+      font-size: 18px;
+    }
+
+    .email-btn {
+      display: inline-block;
+      padding: 17px 35px;
+      background: linear-gradient(135deg, #67e8f9, #2dd4bf);
+      color: #0b112b;
+      font-weight: 800;
+      border-radius: 50px;
+      transition: 0.3s;
+    }
+
+    .email-btn:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(45, 212, 191, 0.25);
+    }
+
+    footer {
+      background: #070b1d;
+      color: rgba(255, 255, 255, 0.45);
+      text-align: center;
+      padding: 25px;
+      font-size: 13px;
+    }
+
+    /* 스크롤 등장 애니메이션 */
+    .reveal {
+      opacity: 0;
+      transform: translateY(35px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* 모바일 반응형 */
+    @media (max-width: 768px) {
+      section {
+        padding: 85px 0;
+      }
+
+      .hero {
+        min-height: 88vh;
+      }
+
+      .hero h1 {
+        letter-spacing: -3px;
+      }
+
+      .section-title {
+        margin-bottom: 35px;
+      }
+
+      .about-text {
+        font-size: 17px;
+      }
+
+      .work-item {
+        grid-template-columns: 60px 1fr;
+        gap: 12px;
+        padding: 25px 0;
+      }
+
+      .work-item h3 {
+        font-size: 21px;
+      }
+
+      .card-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+      }
+
+      .favorite-card {
+        height: 250px;
+        padding: 22px;
+        border-radius: 20px;
+      }
+
+      .favorite-card h3 {
+        font-size: 20px;
+      }
+
+      .favorite-card p {
+        font-size: 14px;
+      }
+
+      .card-emoji {
+        font-size: 38px;
+      }
+
+      .contact {
+        padding: 100px 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .card-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .favorite-card {
+        height: 230px;
+        padding: 18px;
+      }
+
+      .hero-description br {
+        display: none;
+      }
+    }
+
+    /* 모션 최소화 환경 */
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- 01. 첫 화면 -->
+  <section class="hero">
+    <div class="container hero-content">
+      <p class="hero-label">HELLO, I'M</p>
+
+      <h1>YOUR NAME</h1>
+
+      <p class="hero-description">
+        새로운 가능성을 탐험하고,<br>
+        아이디어를 현실로 만드는 사람입니다.<br>
+        작은 시작으로 큰 변화를 만들어 갑니다.
+      </p>
+
+      <a href="#about" class="hero-btn">더 알아보기 ↓</a>
+    </div>
+  </section>
+
+  <!-- 02. 소개 -->
+  <section class="about reveal" id="about">
+    <div class="container">
+      <p class="section-label">ABOUT ME</p>
+      <h2 class="section-title">저는 이런 사람입니다</h2>
+
+      <p class="about-text">
+        저는 <strong>새로운 것을 배우고 도전하는 과정</strong>을 좋아합니다.<br>
+        생각에 머무르기보다 직접 실행하고 경험하며 성장합니다.<br>
+        사람과 아이디어를 연결해 가치 있는 결과를 만드는 것이 목표입니다.
+      </p>
+    </div>
+  </section>
+
+  <!-- 03. 하는 일 -->
+  <section class="work reveal">
+    <div class="container">
+      <p class="section-label">WHAT I DO</p>
+      <h2 class="section-title">제가 하는 일</h2>
+
+      <ul class="work-list">
+        <li class="work-item">
+          <span class="work-number">01</span>
+          <div>
+            <h3>아이디어 기획</h3>
+            <p>문제를 발견하고 새로운 아이디어를 구체적인 계획으로 만듭니다.</p>
+          </div>
+        </li>
+
+        <li class="work-item">
+          <span class="work-number">02</span>
+          <div>
+            <h3>창의적인 실행</h3>
+            <p>생각을 행동으로 옮기고 실제 결과를 만들어 내는 데 집중합니다.</p>
+          </div>
+        </li>
+
+        <li class="work-item">
+          <span class="work-number">03</span>
+          <div>
+            <h3>지속적인 성장</h3>
+            <p>실패와 경험을 통해 배우고 더 나은 방향으로 발전합니다.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 04. 좋아하는 것 -->
+  <section class="favorites reveal">
+    <div class="container">
+      <p class="section-label">MY FAVORITES</p>
+      <h2 class="section-title">제가 좋아하는 것</h2>
+
+      <div class="card-grid">
+
+        <article class="favorite-card card-1">
+          <div class="card-emoji">📚</div>
+          <h3>독서</h3>
+          <p>새로운 관점과 지식을 발견하는 시간</p>
+        </article>
+
+        <article class="favorite-card card-2">
+          <div class="card-emoji">✈️</div>
+          <h3>여행</h3>
+          <p>낯선 장소에서 새로운 경험을 쌓기</p>
+        </article>
+
+        <article class="favorite-card card-3">
+          <div class="card-emoji">💡</div>
+          <h3>아이디어</h3>
+          <p>평범한 일상에서 특별한 가능성 찾기</p>
+        </article>
+
+        <article class="favorite-card card-4">
+          <div class="card-emoji">🎨</div>
+          <h3>창작</h3>
+          <p>상상한 것을 직접 만들어 보는 즐거움</p>
+        </article>
+
+        <article class="favorite-card card-5">
+          <div class="card-emoji">☕</div>
+          <h3>커피</h3>
+          <p>생각을 정리하고 여유를 즐기는 순간</p>
+        </article>
+
+        <article class="favorite-card card-6">
+          <div class="card-emoji">🚀</div>
+          <h3>도전</h3>
+          <p>익숙한 틀을 벗어나 성장하는 경험</p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 05. 연락 -->
+  <section class="contact reveal" id="contact">
+    <p class="section-label">CONTACT</p>
+    <h2>함께 만들어 볼까요?</h2>
+    <p>새로운 아이디어와 좋은 기회를 기다리고 있습니다.</p>
+
+    <a href="mailto:your@email.com" class="email-btn">
+      이메일 보내기 →
+    </a>
+  </section>
+
+  <!-- 06. 푸터 -->
+  <footer>
+    © 2026 YOUR NAME. All rights reserved.
+  </footer>
+
+  <!-- 스크롤 애니메이션 -->
+  <script>
+    const revealElements = document.querySelectorAll(".reveal");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.15
+      }
+    );
+
+    revealElements.forEach((element) => {
+      observer.observe(element);
+    });
+  </script>
+
+</body>
+</html>
